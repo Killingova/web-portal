@@ -1,0 +1,32 @@
+name: web-portal-stack
+
+services:
+  web-portal:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    image: web-portal:local
+    restart: unless-stopped
+    init: true
+
+    networks:
+      - paradox_net
+
+    # SaaS default: internal-only. Gateway serves the portal.
+    expose:
+      - "80"
+
+    # Uncomment only for local standalone debug:
+    # ports:
+    #   - "127.0.0.1:3000:80"
+
+    healthcheck:
+      test: ["CMD-SHELL", "wget -qO- http://127.0.0.1/healthz >/dev/null 2>&1 || exit 1"]
+      interval: 10s
+      timeout: 3s
+      retries: 10
+      start_period: 5s
+
+networks:
+  paradox_net:
+    external: true
