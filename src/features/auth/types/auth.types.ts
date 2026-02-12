@@ -18,7 +18,7 @@ export interface User {
   // Optional, je nach Backend
   emailVerified?: boolean;
   tenantId?: string;
-  roles?: Role[];
+  roles: Role[];
   planTier?: PlanTier;
 
   displayName?: string;
@@ -122,7 +122,7 @@ export interface OtpRequestPayload {
 
 export interface OtpVerifyPayload {
   email: string;
-  otp: string;
+  code: string;
 }
 
 export interface OtpVerifyResponse extends AuthResponse {}
@@ -196,6 +196,16 @@ export interface TenantListResponse {
 
 export interface TenantMeResponse {
   tenant: TenantInfo;
+}
+
+export interface TenantBootstrapPayload {
+  name: string;
+}
+
+export interface TenantBootstrapResponse {
+  tenantId: string;
+  tenant?: TenantInfo;
+  message?: string;
 }
 
 // ===============================

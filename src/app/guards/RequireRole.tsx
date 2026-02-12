@@ -10,6 +10,7 @@ interface Props {
 
 export function RequireRole({ role, children }: Props) {
   const { user, loading } = useAuth();
+  const roles = user?.roles ?? [];
 
   if (loading) {
     return (
@@ -19,7 +20,7 @@ export function RequireRole({ role, children }: Props) {
     );
   }
 
-  if (!user || !user.roles.includes(role)) {
+  if (!user || !roles.includes(role)) {
     return <Navigate to="/forbidden" replace />;
   }
 

@@ -15,7 +15,7 @@ export function LoginPage() {
   async function handleSubmit(e: FormEvent<HTMLFormElement>) {
     e.preventDefault();
     await login({ email, password });
-    navigate("/profile/me");
+    navigate("/app", { replace: true });
   }
 
   return (
@@ -27,6 +27,10 @@ export function LoginPage() {
           Noch keinen Account?{" "}
           <Link to="/register" className="text-[#8C5A67] hover:underline">
             Jetzt registrieren
+          </Link>{" "}
+          ·{" "}
+          <Link to="/forgot" className="text-[#8C5A67] hover:underline">
+            Passwort vergessen
           </Link>
         </span>
       }
@@ -63,6 +67,15 @@ export function LoginPage() {
             required
             placeholder="••••••••"
           />
+        </div>
+
+        <div className="flex items-center justify-between text-sm">
+          <Link to="/magic-link" className="text-[#8C5A67] hover:underline">
+            Magic Link
+          </Link>
+          <Link to="/otp" className="text-[#8C5A67] hover:underline">
+            OTP Login
+          </Link>
         </div>
       </AuthForm>
     </AuthLayout>

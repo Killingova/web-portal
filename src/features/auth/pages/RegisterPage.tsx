@@ -66,13 +66,13 @@ export function RegisterPage() {
         );
         setFormData({ email: "", passwort: "", passwortWdh: "" });
 
-        if (res.accessToken && res.refreshToken && res.user) {
+        if (res.accessToken && res.user) {
           loginWithResponse({
             accessToken: res.accessToken,
-            refreshToken: res.refreshToken,
+            refreshToken: res.refreshToken ?? "",
             user: res.user,
           });
-          navigate("/profile/me");
+          navigate("/app", { replace: true });
         } else {
           setTimeout(() => navigate("/login"), 3000);
         }

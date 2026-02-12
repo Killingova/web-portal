@@ -6,8 +6,9 @@ import React, {
   ReactNode,
 } from "react";
 import type { AuthUser, AuthResponse } from "../../features/auth/types/auth.types";
-import { clearTokens, storeTokens } from "../../shared/lib/tokenManager";
+import { clearTokens, getAccessToken, storeTokens } from "../../shared/lib/tokenManager";
 import { getMyIdentity } from "../../features/auth/api/me";
+import { normalizeAuthResponse, normalizeAuthUser } from "../../shared/store/authStore";
 
 interface AuthContextValue {
   user: AuthUser | null;
@@ -26,13 +27,13 @@ export function AuthProvider({ children }: { children: ReactNode }) {
   useEffect(() => {
     async function bootstrap() {
       try {
-        const token = localStorage.getItem("access_token");
+        const token = getAccessToken();
         if (!token) {
           setLoading(false);
           return;
         }
         const me = await getMyIdentity();
-        setUser(me);
+        setUser(normalizeAuthUser(me));
       } catch {
         clearTokens();
         setUser(null);
@@ -45,8 +46,9 @@ export function AuthProvider({ children }: { children: ReactNode }) {
   }, []);
 
   function loginWithResponse(response: AuthResponse) {
-    storeTokens(response.accessToken, response.refreshToken);
-    setUser(response.user);
+    const normalized = normalizeAuthResponse(response);
+    storeTokens(normalized.accessToken, normalized.refreshToken);
+    setUser(normalized.user);
   }
 
   function logout() {

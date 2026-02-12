@@ -6,7 +6,12 @@
   "scripts": {
     "dev": "vite",
     "build": "vite build",
-    "preview": "vite preview"
+    "preview": "vite preview",
+    "lint": "npm run typecheck",
+    "typecheck": "tsc --noEmit",
+    "test": "node --test",
+    "secret-scan": "bash ./scripts/secret-scan.sh",
+    "audit:prod": "npm audit --omit=dev --audit-level=high"
   },
   "dependencies": {
     "react": "^18.3.1",

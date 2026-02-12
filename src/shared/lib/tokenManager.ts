@@ -1,17 +1,17 @@
-const ACCESS_TOKEN_KEY = "access_token";
+let accessTokenInMemory: string | null = null;
 
-export function storeTokens(accessToken: string, _refreshToken?: string) {
-  localStorage.setItem(ACCESS_TOKEN_KEY, accessToken);
+export function storeTokens(accessToken: string, _refreshToken?: string): void {
+  accessTokenInMemory = accessToken;
 }
 
 export function getAccessToken(): string | null {
-  return localStorage.getItem(ACCESS_TOKEN_KEY);
+  return accessTokenInMemory;
 }
 
 export function getRefreshToken(): string | null {
   return null;
 }
 
-export function clearTokens() {
-  localStorage.removeItem(ACCESS_TOKEN_KEY);
+export function clearTokens(): void {
+  accessTokenInMemory = null;
 }
