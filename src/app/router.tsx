@@ -13,7 +13,6 @@ import { MagicLinkPage } from "../features/auth/pages/MagicLinkPage";
 import { OtpPage } from "../features/auth/pages/OtpPage";
 import { RegisterPage } from "../features/auth/pages/RegisterPage";
 import { ResetPasswordPage } from "../features/auth/pages/ResetPasswordPage";
-import { SessionsPage } from "../features/auth/pages/SessionsPage";
 import { VerifyEmailPage } from "../features/auth/pages/VerifyEmailPage";
 import { ProfileEditPage } from "../features/profile/pages/ProfileEditPage";
 import { ProfilePage } from "../features/profile/pages/ProfilePage";
@@ -92,7 +91,6 @@ export function AppRouter(): React.ReactElement {
                   </RequireTenant>
                 }
               />
-              <Route path="sessions" element={<SessionsPage />} />
               <Route
                 path="settings"
                 element={
@@ -109,7 +107,6 @@ export function AppRouter(): React.ReactElement {
             <Route path="/profile/me" element={<Navigate to="/app/profile" replace />} />
             <Route path="/profile/edit" element={<Navigate to="/app/profile/edit" replace />} />
             <Route path="/profile/privacy" element={<Navigate to="/app/profile/privacy" replace />} />
-            <Route path="/sessions" element={<Navigate to="/app/sessions" replace />} />
 
             <Route path="/forbidden" element={<ForbiddenPage />} />
             <Route path="*" element={<Navigate to="/" replace />} />

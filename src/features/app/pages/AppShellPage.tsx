@@ -45,7 +45,6 @@ export function AppShellPage(): React.ReactElement {
             <NavItem to="/app/onboarding" label="Onboarding" />
             <NavItem to="/app/profile" label="Profil" />
             <NavItem to="/app/settings" label="Settings" />
-            <NavItem to="/app/sessions" label="Sessions" />
           </nav>
 
           <button

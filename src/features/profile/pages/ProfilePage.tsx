@@ -28,9 +28,6 @@ export function ProfilePage() {
             <Link to="/app/profile/privacy" className="text-[#A67C7C] hover:underline">
               Datenschutz
             </Link>
-            <Link to="/app/sessions" className="text-[#A67C7C] hover:underline">
-              Sessions
-            </Link>
           </div>
         </div>
 
