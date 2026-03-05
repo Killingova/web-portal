@@ -1,4 +1,4 @@
-import React, { FormEvent, useState } from "react";
+import { FormEvent, useState } from "react";
 import { Link, useSearchParams } from "react-router-dom";
 import { emailVerifyRequest } from "../api/emailVerifyRequest";
 import { useVerifyEmail } from "../hooks/useVerifyEmail";
@@ -43,7 +43,7 @@ export function VerifyEmailPage() {
       footer={
         <span>
           Bereits verifiziert?{" "}
-          <Link to="/login" className="text-[#8C5A67] hover:underline">
+          <Link to="/login" className="text-[#9b7fe8] hover:text-[#bba6ff] hover:underline transition-colors">
             Zum Login
           </Link>
         </span>
@@ -62,7 +62,7 @@ export function VerifyEmailPage() {
           </FormField>
 
           {message ? (
-            <p className={`text-sm px-3 py-2 rounded ${success ? "text-green-700 bg-green-100" : "text-[#260101] bg-[#f5e7ea]"}`}>
+            <p className={`text-sm px-3 py-2 rounded-lg ${success ? "text-green-300 bg-green-900/30 border border-green-500/30" : "text-red-300 bg-red-900/30 border border-red-500/30"}`}>
               {message}
             </p>
           ) : null}
@@ -87,7 +87,7 @@ export function VerifyEmailPage() {
           </FormField>
 
           {requestMessage ? (
-            <p className="text-sm text-green-700 bg-green-100 px-3 py-2 rounded">{requestMessage}</p>
+            <p className="text-sm text-green-300 bg-green-900/30 border border-green-500/30 px-3 py-2 rounded-lg">{requestMessage}</p>
           ) : null}
         </AuthForm>
       </div>

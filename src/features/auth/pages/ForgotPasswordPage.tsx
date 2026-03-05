@@ -1,4 +1,4 @@
-import React, { FormEvent, useState } from "react";
+import { FormEvent, useState } from "react";
 import { Link } from "react-router-dom";
 import { passwordForgot } from "../api/passwordForgot";
 import { AuthForm } from "../components/AuthForm";
@@ -35,7 +35,7 @@ export function ForgotPasswordPage() {
       footer={
         <span>
           Zurueck zum{" "}
-          <Link to="/login" className="text-[#8C5A67] hover:underline">
+          <Link to="/login" className="text-[#9b7fe8] hover:text-[#bba6ff] hover:underline transition-colors">
             Login
           </Link>
         </span>
@@ -54,7 +54,7 @@ export function ForgotPasswordPage() {
           />
         </FormField>
 
-        {message ? <p className="text-sm text-green-700 bg-green-100 px-3 py-2 rounded">{message}</p> : null}
+        {message ? <p className="text-sm text-green-300 bg-green-900/30 border border-green-500/30 px-3 py-2 rounded-lg">{message}</p> : null}
       </AuthForm>
     </AuthLayout>
   );

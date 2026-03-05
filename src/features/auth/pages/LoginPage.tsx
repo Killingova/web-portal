@@ -1,5 +1,5 @@
 // src/features/auth/pages/LoginPage.tsx (vereinfacht)
-import React, { FormEvent } from "react";
+import { FormEvent, useState } from "react";
 import { useNavigate, Link } from "react-router-dom";
 import { Input } from "../../../shared/ui/Input";
 import { AuthLayout } from "../components/AuthLayout";
@@ -9,8 +9,8 @@ import { useLogin } from "../hooks/useLogin";
 export function LoginPage() {
   const navigate = useNavigate();
   const { login, loading, error } = useLogin();
-  const [email, setEmail] = React.useState("");
-  const [password, setPassword] = React.useState("");
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
 
   async function handleSubmit(e: FormEvent<HTMLFormElement>) {
     e.preventDefault();
@@ -25,11 +25,11 @@ export function LoginPage() {
       footer={
         <span>
           Noch keinen Account?{" "}
-          <Link to="/register" className="text-[#8C5A67] hover:underline">
+          <Link to="/register" className="text-[#9b7fe8] hover:text-[#bba6ff] hover:underline transition-colors">
             Jetzt registrieren
           </Link>{" "}
           ·{" "}
-          <Link to="/forgot" className="text-[#8C5A67] hover:underline">
+          <Link to="/forgot" className="text-[#9b7fe8] hover:text-[#bba6ff] hover:underline transition-colors">
             Passwort vergessen
           </Link>
         </span>
@@ -42,7 +42,7 @@ export function LoginPage() {
         error={error}
       >
         <div>
-          <label className="block text-sm font-medium text-[#260101] mb-1">
+          <label className="block text-sm font-medium text-[#b9adcf] mb-1">
             E-Mail
           </label>
           <Input
@@ -56,7 +56,7 @@ export function LoginPage() {
         </div>
 
         <div>
-          <label className="block text-sm font-medium text-[#260101] mb-1">
+          <label className="block text-sm font-medium text-[#b9adcf] mb-1">
             Passwort
           </label>
           <Input
@@ -70,10 +70,10 @@ export function LoginPage() {
         </div>
 
         <div className="flex items-center justify-between text-sm">
-          <Link to="/magic-link" className="text-[#8C5A67] hover:underline">
+          <Link to="/magic-link" className="text-[#9b7fe8] hover:text-[#bba6ff] hover:underline transition-colors">
             Magic Link
           </Link>
-          <Link to="/otp" className="text-[#8C5A67] hover:underline">
+          <Link to="/otp" className="text-[#9b7fe8] hover:text-[#bba6ff] hover:underline transition-colors">
             OTP Login
           </Link>
         </div>

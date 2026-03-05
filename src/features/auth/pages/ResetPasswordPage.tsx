@@ -1,4 +1,4 @@
-import React, { FormEvent, useMemo, useState } from "react";
+import { FormEvent, useMemo, useState } from "react";
 import { Link, useNavigate, useSearchParams } from "react-router-dom";
 import { passwordReset } from "../api/passwordReset";
 import { useAuth } from "../../../app/providers/AuthProvider";
@@ -72,7 +72,7 @@ export function ResetPasswordPage() {
       footer={
         <span>
           Zurueck zum{" "}
-          <Link to="/login" className="text-[#8C5A67] hover:underline">
+          <Link to="/login" className="text-[#9b7fe8] hover:text-[#bba6ff] hover:underline transition-colors">
             Login
           </Link>
         </span>
@@ -118,7 +118,7 @@ export function ResetPasswordPage() {
           />
         </FormField>
 
-        {message ? <p className="text-sm text-green-700 bg-green-100 px-3 py-2 rounded">{message}</p> : null}
+        {message ? <p className="text-sm text-green-300 bg-green-900/30 border border-green-500/30 px-3 py-2 rounded-lg">{message}</p> : null}
       </AuthForm>
     </AuthLayout>
   );

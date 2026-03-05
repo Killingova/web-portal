@@ -1,4 +1,4 @@
-import React, { FormEvent, useMemo, useState } from "react";
+import { FormEvent, useMemo, useState } from "react";
 import { Button } from "../../../shared/ui/Button";
 import { FormField } from "../../../shared/ui/FormField";
 import { Input } from "../../../shared/ui/Input";
@@ -35,8 +35,8 @@ export function ProfileForm({ profile, loading, error, message, onSubmit }: Prof
   }
 
   return (
-    <form onSubmit={handleSubmit} className="space-y-4 bg-[#1d0000] border border-[#8C5A67] rounded-xl p-5">
-      <h2 className="text-xl font-semibold">Profil bearbeiten</h2>
+    <form onSubmit={handleSubmit} className="space-y-4 bg-white/5 backdrop-blur-xl border border-white/10 rounded-xl p-5">
+      <h2 className="text-xl font-semibold text-[#f2eeff]">Profil bearbeiten</h2>
 
       <FormField id="displayName" label="Anzeigename">
         <Input
@@ -67,8 +67,8 @@ export function ProfileForm({ profile, loading, error, message, onSubmit }: Prof
         />
       </FormField>
 
-      {error ? <p className="text-sm text-red-500">{error}</p> : null}
-      {message ? <p className="text-sm text-green-400">{message}</p> : null}
+      {error ? <p className="text-sm text-red-300 bg-red-900/30 border border-red-500/30 rounded-lg px-3 py-2">{error}</p> : null}
+      {message ? <p className="text-sm text-green-300 bg-green-900/30 border border-green-500/30 rounded-lg px-3 py-2">{message}</p> : null}
 
       <Button type="submit" disabled={loading || isPristine} className="w-full">
         {loading ? "Speichert..." : "Profil speichern"}

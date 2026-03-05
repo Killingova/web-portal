@@ -1,12 +1,12 @@
-import React from "react";
+import type { ReactElement } from "react";
 import { Navigate, useLocation } from "react-router-dom";
 import { useTenant } from "../providers/TenantProvider";
 
 interface RequireTenantProps {
-  children: React.ReactElement;
+  children: ReactElement;
 }
 
-export function RequireTenant({ children }: RequireTenantProps): React.ReactElement {
+export function RequireTenant({ children }: RequireTenantProps): ReactElement {
   const { hasTenant } = useTenant();
   const location = useLocation();
 

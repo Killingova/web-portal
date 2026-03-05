@@ -1,11 +1,10 @@
-import React from "react";
-
-export function SettingsPage(): React.ReactElement {
+import type { ReactElement } from "react";
+export function SettingsPage(): ReactElement {
   return (
-    <section className="bg-[#1d0000] border border-[#8C5A67] rounded-xl p-5 space-y-3">
-      <h1 className="text-2xl font-semibold">Settings</h1>
-      <p className="text-sm text-[#DCDEF2]/90">
-        Dieser Bereich ist fuer Phase 2 vorgesehen (Billing, Notifications, Preferences).
+    <section className="bg-white/5 backdrop-blur-xl border border-white/10 rounded-2xl p-5 space-y-3">
+      <h1 className="text-2xl font-bold text-[#f2eeff]">Einstellungen</h1>
+      <p className="text-sm text-[#b9adcf]">
+        Dieser Bereich ist für Phase 2 vorgesehen (Billing, Notifications, Preferences).
       </p>
     </section>
   );

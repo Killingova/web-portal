@@ -1,4 +1,5 @@
-import React, { ReactNode, createContext, useContext, useEffect, useState } from "react";
+import type { ReactElement } from "react";
+import { ReactNode, createContext, useContext, useEffect, useState } from "react";
 import { useAuth } from "./AuthProvider";
 
 const TENANT_ID_STORAGE_KEY = "tenant_id";
@@ -23,7 +24,7 @@ function normalizeTenantId(raw: string | null | undefined): string | null {
   return UUID_RE.test(candidate) ? candidate : null;
 }
 
-export function TenantProvider({ children }: { children: ReactNode }): React.ReactElement {
+export function TenantProvider({ children }: { children: ReactNode }): ReactElement {
   const { isAuthenticated, user } = useAuth();
   const [tenantId, setTenantIdState] = useState<string | null>(() =>
     normalizeTenantId(localStorage.getItem(TENANT_ID_STORAGE_KEY))

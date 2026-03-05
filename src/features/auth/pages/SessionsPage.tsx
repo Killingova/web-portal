@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { sessionsList } from "../api/sessionsList";
 import { sessionsRevoke } from "../api/sessionsRevoke";
@@ -67,11 +67,11 @@ export function SessionsPage() {
   }
 
   return (
-    <div className="min-h-screen bg-[#260101] text-[#DCDEF2] p-8">
+    <div className="min-h-screen bg-[#0d1117] text-[#f2eeff] p-4 sm:p-8">
       <div className="max-w-3xl mx-auto space-y-4">
         <div className="flex items-center justify-between">
-          <h1 className="text-2xl font-bold">Aktive Sessions</h1>
-          <Link to="/app/profile" className="text-[#A67C7C] hover:underline">
+          <h1 className="text-xl sm:text-2xl font-bold">Aktive Sessions</h1>
+          <Link to="/app/profile" className="text-[#9b7fe8] hover:text-[#bba6ff] hover:underline transition-colors">
             Zurueck
           </Link>
         </div>
@@ -80,53 +80,53 @@ export function SessionsPage() {
           <button
             type="button"
             onClick={() => void loadSessions()}
-            className="px-4 py-2 rounded bg-[#8C5A67] hover:bg-[#A67C7C] text-white text-sm"
+            className="px-4 py-2 rounded-lg bg-gradient-to-r from-[#6948cf] to-[#8f77e0] text-white text-sm hover:brightness-110 transition shadow-lg shadow-[#6948cf]/25"
           >
             Neu laden
           </button>
           <button
             type="button"
             onClick={() => void handleLogoutEverywhere()}
-            className="px-4 py-2 rounded border border-[#A67C7C] text-sm hover:bg-[#1d0000]"
+            className="px-4 py-2 rounded-lg border border-[#4c3d79] text-[#ddd2f5] text-sm hover:bg-[#6f52cc]/20 backdrop-blur-sm transition"
           >
             Lokal abmelden
           </button>
         </div>
 
-        {loading ? <p>Lade Sessions...</p> : null}
-        {error ? <p className="text-sm text-red-400">{error}</p> : null}
-        {message ? <p className="text-sm text-green-400">{message}</p> : null}
+        {loading ? <p className="text-[#b9adcf]">Lade Sessions...</p> : null}
+        {error ? <p className="text-sm text-red-300 bg-red-900/30 border border-red-500/30 rounded-lg px-3 py-2">{error}</p> : null}
+        {message ? <p className="text-sm text-green-300 bg-green-900/30 border border-green-500/30 rounded-lg px-3 py-2">{message}</p> : null}
 
         <div className="space-y-3">
           {sessions.map((session) => (
-            <article key={session.id} className="bg-[#1d0000] border border-[#8C5A67] rounded-xl p-4">
+            <article key={session.id} className="bg-white/5 backdrop-blur-xl border border-white/10 rounded-xl p-4">
               <div className="flex items-center justify-between gap-4">
-                <div className="space-y-1 text-sm">
+                <div className="space-y-1 text-sm text-[#b9adcf]">
                   <p>
-                    <span className="font-medium">Session:</span> {session.id}
+                    <span className="font-medium text-[#f2eeff]">Session:</span> {session.id}
                   </p>
                   <p>
-                    <span className="font-medium">Device:</span> {session.device || "unknown"}
+                    <span className="font-medium text-[#f2eeff]">Device:</span> {session.device || "unknown"}
                   </p>
                   <p>
-                    <span className="font-medium">IP:</span> {session.ip || "unknown"}
+                    <span className="font-medium text-[#f2eeff]">IP:</span> {session.ip || "unknown"}
                   </p>
                   <p>
-                    <span className="font-medium">Erstellt:</span> {toLocalDate(session.createdAt)}
+                    <span className="font-medium text-[#f2eeff]">Erstellt:</span> {toLocalDate(session.createdAt)}
                   </p>
                   <p>
-                    <span className="font-medium">Zuletzt genutzt:</span> {toLocalDate(session.lastUsedAt)}
+                    <span className="font-medium text-[#f2eeff]">Zuletzt genutzt:</span> {toLocalDate(session.lastUsedAt)}
                   </p>
                 </div>
 
                 {session.isCurrent ? (
-                  <span className="text-xs px-2 py-1 rounded bg-[#2f3a2f] text-green-300">Aktuelle Session</span>
+                  <span className="text-xs px-2 py-1 rounded-lg bg-green-900/40 border border-green-500/30 text-green-300">Aktuelle Session</span>
                 ) : (
                   <button
                     type="button"
                     onClick={() => void handleRevoke(session.id)}
                     disabled={revokingSessionId === session.id}
-                    className="px-3 py-2 rounded bg-[#8C5A67] hover:bg-[#A67C7C] text-sm text-white disabled:opacity-60"
+                    className="px-3 py-2 rounded-lg border border-red-500/40 text-red-300 text-sm hover:bg-red-900/30 transition disabled:opacity-60"
                   >
                     {revokingSessionId === session.id ? "Beende..." : "Session beenden"}
                   </button>
@@ -136,7 +136,7 @@ export function SessionsPage() {
           ))}
 
           {!loading && sessions.length === 0 ? (
-            <p className="text-sm text-[#DCDEF2]/80">Keine Sessions gefunden.</p>
+            <p className="text-sm text-[#b9adcf]">Keine Sessions gefunden.</p>
           ) : null}
         </div>
       </div>

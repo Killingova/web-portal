@@ -1,4 +1,4 @@
-import React from "react";
+import type { ReactElement } from "react";
 import { BrowserRouter, Navigate, Route, Routes } from "react-router-dom";
 import { RequireAuth } from "./guards/RequireAuth";
 import { RequireTenant } from "./guards/RequireTenant";
@@ -17,22 +17,28 @@ import { VerifyEmailPage } from "../features/auth/pages/VerifyEmailPage";
 import { ProfileEditPage } from "../features/profile/pages/ProfileEditPage";
 import { ProfilePage } from "../features/profile/pages/ProfilePage";
 import { ProfilePrivacyPage } from "../features/profile/pages/ProfilePrivacyPage";
+import { SessionsPage } from "../features/auth/pages/SessionsPage";
 import { LandingPage } from "../features/public/pages/LandingPage";
+import { PublicLayout } from "../features/public/pages/PublicLayout";
+import { ImpressumPage } from "../features/public/pages/ImpressumPage";
+import { DatenschutzPage } from "../features/public/pages/DatenschutzPage";
+import { KontaktPage } from "../features/public/pages/KontaktPage";
+import { UeberPage } from "../features/public/pages/UeberPage";
 
-function AppEntryRedirect(): React.ReactElement {
+function AppEntryRedirect(): ReactElement {
   const { hasTenant } = useTenant();
   return <Navigate to={hasTenant ? "/app/profile" : "/app/onboarding"} replace />;
 }
 
-function ForbiddenPage(): React.ReactElement {
+function ForbiddenPage(): ReactElement {
   return (
-    <div className="min-h-screen bg-[#260101] text-[#DCDEF2] flex items-center justify-center p-8">
-      <div className="max-w-lg bg-[#1d0000] border border-[#8C5A67] rounded-xl p-6">
-        <h1 className="text-2xl font-semibold mb-3">Zugriff verweigert</h1>
-        <p className="text-sm text-[#DCDEF2]/90 mb-4">
+    <div className="min-h-screen bg-[#0d1117] text-[#f2eeff] flex items-center justify-center p-8">
+      <div className="max-w-lg bg-white/5 backdrop-blur-xl border border-white/10 rounded-2xl p-6">
+        <h1 className="text-xl sm:text-2xl font-semibold mb-3">Zugriff verweigert</h1>
+        <p className="text-sm text-[#b9adcf] mb-4">
           Du hast nicht die erforderliche Rolle, um diese Seite zu sehen.
         </p>
-        <a className="text-[#A67C7C] hover:underline" href="/app">
+        <a className="text-[#9b7fe8] hover:text-[#bba6ff] hover:underline transition-colors" href="/app">
           Zurueck zur App
         </a>
       </div>
@@ -40,11 +46,11 @@ function ForbiddenPage(): React.ReactElement {
   );
 }
 
-export function AppRouter(): React.ReactElement {
+export function AppRouter(): ReactElement {
   return (
     <AuthProvider>
       <TenantProvider>
-        <BrowserRouter>
+        <BrowserRouter future={{ v7_startTransition: true, v7_relativeSplatPath: true }}>
           <Routes>
             <Route path="/" element={<LandingPage />} />
 
@@ -56,6 +62,13 @@ export function AppRouter(): React.ReactElement {
 
             <Route path="/magic-link" element={<MagicLinkPage />} />
             <Route path="/otp" element={<OtpPage />} />
+
+            <Route element={<PublicLayout />}>
+              <Route path="/ueber"       element={<UeberPage />} />
+              <Route path="/kontakt"     element={<KontaktPage />} />
+              <Route path="/impressum"   element={<ImpressumPage />} />
+              <Route path="/datenschutz" element={<DatenschutzPage />} />
+            </Route>
 
             <Route
               path="/app"
@@ -96,6 +109,14 @@ export function AppRouter(): React.ReactElement {
                 element={
                   <RequireTenant>
                     <SettingsPage />
+                  </RequireTenant>
+                }
+              />
+              <Route
+                path="sessions"
+                element={
+                  <RequireTenant>
+                    <SessionsPage />
                   </RequireTenant>
                 }
               />

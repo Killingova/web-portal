@@ -1,11 +1,11 @@
-import React from "react";
+import type { ReactElement } from "react";
 import { Navigate } from "react-router-dom";
 import { useAuth } from "../providers/AuthProvider";
 import type { Role } from "../../features/auth/types/auth.types";
 
 interface Props {
   role: Role;
-  children: React.ReactElement;
+  children: ReactElement;
 }
 
 export function RequireRole({ role, children }: Props) {

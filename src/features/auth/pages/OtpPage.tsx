@@ -1,4 +1,4 @@
-import React, { FormEvent, useState } from "react";
+import { FormEvent, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { otpRequest } from "../api/otpRequest";
 import { otpVerify } from "../api/otpVerify";
@@ -57,7 +57,7 @@ export function OtpPage() {
       footer={
         <span>
           Alternativ{" "}
-          <Link to="/login" className="text-[#8C5A67] hover:underline">
+          <Link to="/login" className="text-[#9b7fe8] hover:text-[#bba6ff] hover:underline transition-colors">
             Passwort-Login
           </Link>
         </span>
@@ -76,7 +76,7 @@ export function OtpPage() {
             />
           </FormField>
           {requestMessage ? (
-            <p className="text-sm text-green-700 bg-green-100 px-3 py-2 rounded">{requestMessage}</p>
+            <p className="text-sm text-green-300 bg-green-900/30 border border-green-500/30 px-3 py-2 rounded-lg">{requestMessage}</p>
           ) : null}
         </AuthForm>
 

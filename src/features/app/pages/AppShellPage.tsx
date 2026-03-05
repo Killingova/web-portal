@@ -1,16 +1,20 @@
-import React from "react";
-import { Link, NavLink, Outlet, useNavigate } from "react-router-dom";
+import type { ReactElement } from "react";
+import { NavLink, Outlet, useNavigate } from "react-router-dom";
 import { useAuth } from "../../../app/providers/AuthProvider";
 import { useTenant } from "../../../app/providers/TenantProvider";
+import { Header } from "../../../shared/ui/Header";
+import { Footer } from "../../../shared/ui/Footer";
 
-function NavItem({ to, label }: { to: string; label: string }): React.ReactElement {
+function AppNavItem({ to, label }: { to: string; label: string }): ReactElement {
   return (
     <NavLink
       to={to}
       className={({ isActive }) =>
         [
-          "px-3 py-2 rounded text-sm transition",
-          isActive ? "bg-[#8C5A67] text-white" : "text-[#DCDEF2]/85 hover:bg-[#1d0000]",
+          "inline-flex items-center rounded-lg px-3 py-2 text-sm font-semibold transition-all duration-200",
+          isActive
+            ? "bg-[#6f52cc]/55 text-white shadow-[0_8px_20px_rgba(0,0,0,0.25)]"
+            : "text-[#ddd2f5] hover:text-white hover:bg-[#6f52cc]/35",
         ].join(" ")
       }
     >
@@ -19,7 +23,7 @@ function NavItem({ to, label }: { to: string; label: string }): React.ReactEleme
   );
 }
 
-export function AppShellPage(): React.ReactElement {
+export function AppShellPage(): ReactElement {
   const navigate = useNavigate();
   const { user, logout } = useAuth();
   const { tenantId, clearTenantId } = useTenant();
@@ -31,35 +35,31 @@ export function AppShellPage(): React.ReactElement {
   }
 
   return (
-    <div className="min-h-screen bg-[#260101] text-[#DCDEF2]">
-      <header className="border-b border-[#8C5A67]/50 bg-[#1d0000]">
-        <div className="max-w-6xl mx-auto px-6 py-4 flex items-center justify-between gap-4">
-          <div>
-            <Link to="/app" className="text-lg font-semibold">Pfad des Paradoxons</Link>
-            <p className="text-xs text-[#DCDEF2]/70">
-              {user?.email || "unbekannt"} · Tenant: {tenantId || "nicht gesetzt"}
-            </p>
-          </div>
-
-          <nav className="flex items-center gap-2">
-            <NavItem to="/app/onboarding" label="Onboarding" />
-            <NavItem to="/app/profile" label="Profil" />
-            <NavItem to="/app/settings" label="Settings" />
-          </nav>
-
-          <button
-            type="button"
-            onClick={handleLogout}
-            className="px-3 py-2 rounded border border-[#A67C7C] text-sm hover:bg-[#260101]"
-          >
-            Logout
-          </button>
+    <div className="min-h-screen bg-[#0d1117] text-[#f2eeff] flex flex-col">
+      <Header>
+        <div className="text-right hidden lg:block">
+          <p className="text-xs text-[#9b7fe8] leading-tight">{user?.email || "unbekannt"}</p>
+          <p className="text-[10px] text-[#b9adcf]/60">Tenant: {tenantId || "nicht gesetzt"}</p>
         </div>
-      </header>
 
-      <main className="max-w-6xl mx-auto px-6 py-6">
+        <AppNavItem to="/app/onboarding" label="Erste Schritte" />
+        <AppNavItem to="/app/profile" label="Profil" />
+        <AppNavItem to="/app/settings" label="Einstellungen" />
+
+        <button
+          type="button"
+          onClick={handleLogout}
+          className="inline-flex items-center rounded-lg px-3 py-2 text-sm font-semibold border border-white/20 bg-white/5 backdrop-blur-sm text-[#ddd2f5] hover:bg-white/15 transition-all duration-200"
+        >
+          Abmelden
+        </button>
+      </Header>
+
+      <main className="flex-1 max-w-6xl mx-auto w-full px-4 sm:px-6 py-6 pb-16">
         <Outlet />
       </main>
+
+      <Footer />
     </div>
   );
 }

@@ -1,14 +1,12 @@
-import React, { useState, useCallback, FormEvent } from "react";
+import type { ChangeEvent } from "react";
+import { FormEvent, useCallback, useState } from "react";
 import { useNavigate, Link } from "react-router-dom";
 import { register } from "../api/register";
 import { useAuth } from "../../../app/providers/AuthProvider";
+import { AuthLayout } from "../components/AuthLayout";
+import { Input } from "../../../shared/ui/Input";
+import { Button } from "../../../shared/ui/Button";
 
-/**
- * Registrierungsseite:
- * - Validiert Email & Passwort
- * - POST /auth/register
- * - Zeigt Message / Error
- */
 export function RegisterPage() {
   const navigate = useNavigate();
   const { loginWithResponse } = useAuth();
@@ -23,7 +21,7 @@ export function RegisterPage() {
   const [loading, setLoading] = useState(false);
 
   const handleInputChange = useCallback(
-    (e: React.ChangeEvent<HTMLInputElement>) => {
+    (e: ChangeEvent<HTMLInputElement>) => {
       const { name, value } = e.target;
       setFormData((prev) => ({ ...prev, [name]: value }));
     },
@@ -90,92 +88,77 @@ export function RegisterPage() {
     !formData.email || !formData.passwort || !formData.passwortWdh || loading;
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-[#260101]">
-      <section className="w-full max-w-xl mx-auto p-6 bg-[#DCDEF2] rounded-xl shadow-lg border border-[#A67C7C]">
-        <h2 className="text-2xl font-bold text-[#260101] mb-6 text-center">
-          Registrieren
-        </h2>
-
-        <form onSubmit={handleSubmit} className="space-y-5">
-          {/* E-Mail */}
-          <div>
-            <label
-              htmlFor="email"
-              className="block font-medium text-[#260101]"
-            >
-              E-Mail <sup className="text-red-500">*</sup>
-            </label>
-            <input
-              id="email"
-              name="email"
-              type="email"
-              value={formData.email}
-              onChange={handleInputChange}
-              placeholder="dein@email.de"
-              className="w-full mt-1 px-4 py-2 border border-[#A67C7C] rounded-md focus:outline-none focus:ring-2 focus:ring-[#8C5A67] bg-white"
-              required
-            />
-          </div>
-
-          {/* Passwort */}
-          <div>
-            <label
-              htmlFor="passwort"
-              className="block font-medium text-[#260101]"
-            >
-              Passwort <sup className="text-red-500">*</sup>
-            </label>
-            <input
-              id="passwort"
-              name="passwort"
-              type="password"
-              value={formData.passwort}
-              onChange={handleInputChange}
-              placeholder="Mindestens 8 Zeichen"
-              className="w-full mt-1 px-4 py-2 border border-[#A67C7C] rounded-md focus:outline-none focus:ring-2 focus:ring-[#8C5A67] bg-white"
-              required
-            />
-          </div>
-
-          {/* Passwort wiederholen */}
-          <div>
-            <label
-              htmlFor="passwortWdh"
-              className="block font-medium text-[#260101]"
-            >
-              Passwort wiederholen <sup className="text-red-500">*</sup>
-            </label>
-            <input
-              id="passwortWdh"
-              name="passwortWdh"
-              type="password"
-              value={formData.passwortWdh}
-              onChange={handleInputChange}
-              placeholder="Nochmals eingeben"
-              className="w-full mt-1 px-4 py-2 border border-[#A67C7C] rounded-md focus:outline-none focus:ring-2 focus:ring-[#8C5A67] bg-white"
-              required
-            />
-          </div>
-
-          {error && <p className="text-red-600 text-sm">{error}</p>}
-          {message && <p className="text-green-700 text-sm">{message}</p>}
-
-          <button
-            type="submit"
-            className="w-full bg-[#8C5A67] text-white py-2 px-4 rounded-md hover:bg-[#A67C7C] transition disabled:opacity-60"
-            disabled={isSubmitDisabled}
-          >
-            {loading ? "Registriere…" : "Registrieren"}
-          </button>
-        </form>
-
-        <p className="text-center mt-4 text-[#260101]">
+    <AuthLayout
+      title="Registrieren"
+      subtitle="Erstelle dein Konto für das Portal."
+      footer={
+        <span>
           Schon ein Konto?{" "}
-          <Link to="/login" className="text-[#8C5A67] hover:underline">
+          <Link to="/login" className="text-[#9b7fe8] hover:text-[#bba6ff] hover:underline transition-colors">
             Hier einloggen
           </Link>
-        </p>
-      </section>
-    </div>
+        </span>
+      }
+    >
+      <form onSubmit={handleSubmit} className="space-y-5">
+        <div>
+          <label htmlFor="email" className="block text-sm font-medium text-[#b9adcf] mb-1">
+            E-Mail <sup className="text-[#e2bf73]">*</sup>
+          </label>
+          <Input
+            id="email"
+            name="email"
+            type="email"
+            value={formData.email}
+            onChange={handleInputChange}
+            placeholder="dein@email.de"
+            required
+          />
+        </div>
+
+        <div>
+          <label htmlFor="passwort" className="block text-sm font-medium text-[#b9adcf] mb-1">
+            Passwort <sup className="text-[#e2bf73]">*</sup>
+          </label>
+          <Input
+            id="passwort"
+            name="passwort"
+            type="password"
+            autoComplete="new-password"
+            value={formData.passwort}
+            onChange={handleInputChange}
+            placeholder="Mindestens 8 Zeichen"
+            required
+          />
+        </div>
+
+        <div>
+          <label htmlFor="passwortWdh" className="block text-sm font-medium text-[#b9adcf] mb-1">
+            Passwort wiederholen <sup className="text-[#e2bf73]">*</sup>
+          </label>
+          <Input
+            id="passwortWdh"
+            name="passwortWdh"
+            type="password"
+            autoComplete="new-password"
+            value={formData.passwortWdh}
+            onChange={handleInputChange}
+            placeholder="Nochmals eingeben"
+            required
+          />
+        </div>
+
+        {error && (
+          <p className="text-sm text-red-300 bg-red-900/30 border border-red-500/30 px-3 py-2 rounded-lg">{error}</p>
+        )}
+        {message && (
+          <p className="text-sm text-green-300 bg-green-900/30 border border-green-500/30 px-3 py-2 rounded-lg">{message}</p>
+        )}
+
+        <Button type="submit" disabled={isSubmitDisabled} className="w-full">
+          {loading ? "Registriere…" : "Registrieren"}
+        </Button>
+      </form>
+    </AuthLayout>
   );
 }
